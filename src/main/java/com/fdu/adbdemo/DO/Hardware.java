@@ -1,20 +1,19 @@
 package com.fdu.adbdemo.DO;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "cpu")
-public class Cpu{
+public class Hardware {
     @Id
     private Long id;
     private String title;
     private Long price;
-    private Long shipping_fee;
+    private Long shippingFee;
     private String location;
     private String sold;
     private Long comment;
+
+    public Hardware() {
+    }
 
     public Long getId() {
         return id;
@@ -40,12 +39,12 @@ public class Cpu{
         this.price = price;
     }
 
-    public Long getShipping_fee() {
-        return shipping_fee;
+    public Long getShippingFee() {
+        return shippingFee;
     }
 
-    public void setShipping_fee(Long shipping_fee) {
-        this.shipping_fee = shipping_fee;
+    public void setShippingFee(Long shippingFee) {
+        this.shippingFee = shippingFee;
     }
 
     public String getLocation() {
@@ -74,11 +73,11 @@ public class Cpu{
 
     @Override
     public String toString() {
-        return "Cpu{" +
+        return "Hardware{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
-                ", shipping_fee=" + shipping_fee +
+                ", shippingFee=" + shippingFee +
                 ", location='" + location + '\'' +
                 ", sold='" + sold + '\'' +
                 ", comment=" + comment +

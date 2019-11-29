@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cpu")
-public class Cpu{
+@Table(name = "gpu")
+public class Gpu {
     @Id
     private Long id;
     private String title;
@@ -15,6 +15,9 @@ public class Cpu{
     private String location;
     private String sold;
     private Long comment;
+
+    public Gpu() {
+    }
 
     public Long getId() {
         return id;
@@ -74,7 +77,7 @@ public class Cpu{
 
     @Override
     public String toString() {
-        return "Cpu{" +
+        return "Gpu{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
