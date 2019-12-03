@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "screen")
+//@Entity
+//@Table(name = "screen")
 public class Screen {
     @Id
     private Long id;
