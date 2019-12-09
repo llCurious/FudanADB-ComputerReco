@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@CrossOrigin
 @RestController
 public class ComputerRecommendController {
 
@@ -68,7 +69,7 @@ public class ComputerRecommendController {
     public List<Laptop> findLaptops(@RequestBody LaptopRequestBody request) {
         System.out.println("laptops");
         System.out.println(request);
-
+        final int num = 50;
         List<Laptop> res;
         switch (request.getSort_policy()) {
             case "price":
@@ -99,15 +100,72 @@ public class ComputerRecommendController {
 //        return laptopRepository.findLaptopsByCpu(request.getCpu());
 //        return  laptopRepository.findLaptopsByScreen(request.getScreen_size());
 //        return laptopRepository.findLaptopsByResolution(request.getResolution());
-        return res;
+        return res.subList(0, Math.min(num, res.size()));
     }
 
-    @RequestMapping(value = "/recommend", method = RequestMethod.POST)
+    @RequestMapping(value = "/recommendation", method = RequestMethod.POST)
     public List<Laptop> recommendation(@RequestBody RecommendRequest request) {
         System.out.println("recommend");
+        List<Laptop> res;
+        final int num = 20;
+        System.out.println(request);
         String scenario = request.getScenario();
-        // TODO: 根据 scenario 推荐笔记本
-
-        return null;
+        // TODO: 根据 scenario 推荐笔记本, ["商务", "学生", "代码", "游戏", "稳定耐用", "艺术创作"] 这六种
+        res = laptopRepository.findAll();
+        switch (scenario) {
+            case "商务":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getSsd() - o1.getSsd();
+                    }
+                });
+                break;
+            case "学生":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getSales() - o1.getSales();
+                    }
+                });
+                break;
+            case "代码":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getMemory() - o1.getMemory();
+                    }
+                });
+                break;
+            case "游戏":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getPrice() - o1.getPrice();
+                    }
+                });
+                break;
+            case "稳定耐用":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getSsd() - o1.getSsd();
+                    }
+                });
+                break;
+            case "艺术创作":
+                Collections.sort(res, new Comparator<Laptop>() {
+                    @Override
+                    public int compare(Laptop o1, Laptop o2) {
+                        return o2.getScreen_size() - o1.getScreen_size() > 0? 1 : -1;
+                    }
+                });
+                break;
+            default:
+                res = new ArrayList<>();
+                break;
+        }
+        res = res.subList(0, Math.min(num, res.size()));
+        return res;
     }
 }

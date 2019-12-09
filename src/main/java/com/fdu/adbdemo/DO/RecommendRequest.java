@@ -35,4 +35,13 @@ public class RecommendRequest {
     public void setReverse(boolean reverse) {
         this.reverse = reverse;
     }
+
+    @Override
+    public String toString() {
+        return "RecommendRequest{" +
+                "scenario='" + scenario + '\'' +
+                ", sort_policy='" + sort_policy + '\'' +
+                ", reverse=" + reverse +
+                '}';
+    }
 }

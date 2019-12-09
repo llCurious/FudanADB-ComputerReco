@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Laptops")
+@Table(name = "combined_laptops")
 public class Laptop implements Comparable{
     @Id
     private int id;
@@ -194,6 +194,6 @@ public class Laptop implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        return this.getPrice()/this.getSales() - ((Laptop)o).getPrice()/((Laptop)o).getSales();
+        return this.getPrice()/ (this.getSales()==0? 1: this.getSales()) - ((Laptop)o).getPrice()/(((Laptop)o).getSales()+1);
     }
 }
