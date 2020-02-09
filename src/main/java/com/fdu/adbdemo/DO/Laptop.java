@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "combined_laptops")
+@Table(name = "combined_laptops_data")
 public class Laptop implements Comparable{
     @Id
     private int id;

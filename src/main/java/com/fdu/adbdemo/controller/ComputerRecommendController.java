@@ -22,6 +22,7 @@ public class ComputerRecommendController {
     /**
      * Laptop 增删改查
      * */
+    @CrossOrigin
     @PostMapping("/addComputer")
     public void addComputerPOST(@RequestParam Laptop laptop) {
         laptopRepository.save(laptop);
@@ -43,6 +44,7 @@ public class ComputerRecommendController {
     }
 
     @ResponseBody
+    @CrossOrigin
     @RequestMapping(value = "/props", method = RequestMethod.POST)
     public HashMap<String, List<String>> findProps() {
         System.out.println("props");
@@ -65,6 +67,7 @@ public class ComputerRecommendController {
         return props;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/laptops", method = RequestMethod.POST)
     public List<Laptop> findLaptops(@RequestBody LaptopRequestBody request) {
         System.out.println("laptops");
@@ -103,6 +106,7 @@ public class ComputerRecommendController {
         return res.subList(0, Math.min(num, res.size()));
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/recommendation", method = RequestMethod.POST)
     public List<Laptop> recommendation(@RequestBody RecommendRequest request) {
         System.out.println("recommend");
@@ -157,7 +161,7 @@ public class ComputerRecommendController {
                 Collections.sort(res, new Comparator<Laptop>() {
                     @Override
                     public int compare(Laptop o1, Laptop o2) {
-                        return o2.getScreen_size() - o1.getScreen_size() > 0? 1 : -1;
+                        return (o2.getScreen_size() - o1.getScreen_size()) > 0? 1 : -1;
                     }
                 });
                 break;
